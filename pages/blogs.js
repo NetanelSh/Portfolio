@@ -1,0 +1,18 @@
+import React from 'react';
+
+import BaseLayout from "../components/layouts/BaseLayout";
+import BasePage from '../components/BasePage';
+
+class Blogs extends React.Component {
+
+  render() {
+    return (
+      <BaseLayout {...this.props.auth}>
+        <BasePage className="blogs-page" title="I am Blogs Page">
+        </BasePage>
+      </BaseLayout>
+    );
+  }
+}
+
+export default Blogs;
