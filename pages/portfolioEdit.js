@@ -5,12 +5,25 @@ import BasePage from '../components/BasePage';
 
 import withAuth from '../components/hoc/withAuth';
 import PortfolioCreateForm from '../components/portfolios/PortfolioCreateForm';
-import { createPortfolio } from '../actions';
+import { createPortfolio, getPortfolioById } from "../actions";
 import { Row, Col } from 'reactstrap';
 
-import { Router } from '../routes'; 
+import { Router } from '../routes';
 
-class PortfolioNew extends React.Component {
+class PortfolioEdit extends React.Component {
+
+    static async getInitialProps({req, query}) {
+        let portfolio = {};
+
+        try {
+            portfolio = await getPortfolioById(query.id);
+        } catch (error) {
+            console.error(error);
+        }
+
+        console.log(portfolio);
+        return {portfolio};
+    }
 
     constructor(props) {
         super(props);
@@ -22,24 +35,24 @@ class PortfolioNew extends React.Component {
         this.savePortfolio = this.savePortfolio.bind(this);
     }
 
-    savePortfolio(portfolioData, {setSubmitting}) {
+    savePortfolio(portfolioData, { setSubmitting }) {
         setSubmitting(true);
 
         createPortfolio(portfolioData)
-        .then(portfolio => {
-            setSubmitting(false);
-            this.setState({
-                error: undefined
+            .then(portfolio => {
+                setSubmitting(false);
+                this.setState({
+                    error: undefined
+                });
+                Router.pushRoute('/portfolios');
+            })
+            .catch(err => {
+                const error = err.message || 'Server Error!';
+                setSubmitting(false);
+                this.setState({
+                    error: error
+                });
             });
-            Router.pushRoute('/portfolios');
-        })
-        .catch( err => {
-            const error = err.message || 'Server Error!';
-            setSubmitting(false);
-            this.setState({
-                error: error
-            });
-        });
     }
 
     render() {
@@ -58,4 +71,4 @@ class PortfolioNew extends React.Component {
     }
 }
 
-export default withAuth('siteOwner')(PortfolioNew);
+export default withAuth('siteOwner')(PortfolioEdit);

@@ -7,11 +7,12 @@ export default class PortDate extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
-            dateValue: '',
+            dateValue: new Date(),
             isHidden: false
         };
 
         this.handleChange = this.handleChange.bind(this);
+        this.setFieldValueAndTouched(new Date, true);
     }
 
     componentDidMount() {
@@ -62,11 +63,11 @@ export default class PortDate extends React.Component {
                             showMonthDropdown
                             showYearDropdown
                             dropdownMode="select"
-                            maxDate={new Date()}
+                            maxDate={new Date}
                         />
                     </div>
                 }
-                {!isHidden && canBeDisable && <Button onClick={ () => this.toggleDate() }>Still Working Here...</Button>}
+                {!isHidden && canBeDisable && <Button onClick={ () => this.toggleDate(null) }>Still Working Here...</Button>}
                 {  
                     isHidden && canBeDisable &&
                     <React.Fragment>
