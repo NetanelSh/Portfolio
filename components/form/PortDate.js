@@ -6,8 +6,11 @@ import "react-datepicker/dist/react-datepicker.css";
 export default class PortDate extends React.Component {
     constructor(props) {
         super(props);
+
+        const dateValue = props.initialDate ? new Date(props.initialDate) : new Date;
+
         this.state = {
-            dateValue: new Date(),
+            dateValue,
             isHidden: false
         };
 

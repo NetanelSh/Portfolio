@@ -14,8 +14,8 @@ const validateInputs = (values) => {
         }
     })
 
-    const startDate = values.startDate;
-    const endDate = values.endDate;
+    const startDate = new Date(values.startDate);
+    const endDate = new Date(values.endDate);
 
     if (startDate && endDate && (endDate < startDate)) {
         errors.endDate = 'End date cannot be before start date!';
@@ -24,39 +24,67 @@ const validateInputs = (values) => {
     return errors;
 }
 
-const INITIAL_VALUES = { title: '', company: '', location: '', position: '', description: '', startDate: '', endDate: ''};
-
-const PortfolioCreateForm = (props) => (
-    <div>
-        <Formik
-            initialValues={INITIAL_VALUES}
-            validate={validateInputs}
-            onSubmit={props.onSubmit}
-        >
-            {({ isSubmitting }) => (
-                <Form>
-                    <Field type="text" name="title" label="Title" component={PortInput} />
-                    <Field type="text" name="company" label="Company" component={PortInput} />
-                    <Field type="text" name="location" label="Location" component={PortInput} />
-                    <Field type="text" name="position" label="Position" component={PortInput} />
-                    <Field type="textarea" name="description" component="textarea" label="Description" component={PortInput} />
-                    <Field name="startDate" label="Start Date" component={PortDate} />
-                    <Field name="endDate" label="End Date" component={PortDate} canBeDisable={true}/>
-
-                    {
-                        props.error &&
-                        <Alert color="danger">
-                            {props.error}
-                        </Alert>
-                    }
-
-                    <Button size="lg" color="success" type="submit" disabled={isSubmitting}>
-                        Submit
-                    </Button>
-                </Form>
-            )}
-        </Formik>
-    </div>
+const PortfolioCreateForm = ({ initialValues, onSubmit, error }) => (
+  <div>
+    <Formik
+      initialValues={initialValues}
+      validate={validateInputs}
+      onSubmit={onSubmit}
+    >
+      {({ isSubmitting }) => (
+        <Form>
+          <Field type="text" name="title" label="Title" component={PortInput} />
+          <Field
+            type="text"
+            name="company"
+            label="Company"
+            component={PortInput}
+          />
+          <Field
+            type="text"
+            name="location"
+            label="Location"
+            component={PortInput}
+          />
+          <Field
+            type="text"
+            name="position"
+            label="Position"
+            component={PortInput}
+          />
+          <Field
+            type="textarea"
+            name="description"
+            component="textarea"
+            label="Description"
+            component={PortInput}
+          />
+          <Field
+            name="startDate"
+            label="Start Date"
+            initialDate={initialValues.startDate}
+            component={PortDate}
+          />
+          <Field
+            name="endDate"
+            label="End Date"
+            initialDate={initialValues.endDate}
+            component={PortDate}
+            canBeDisable={true}
+          />
+          {error && <Alert color="danger">{error}</Alert>}
+          <Button
+            size="lg"
+            color="success"
+            type="submit"
+            disabled={isSubmitting}
+          >
+            Submit
+          </Button>
+        </Form>
+      )}
+    </Formik>
+  </div>
 );
 
 export default PortfolioCreateForm;

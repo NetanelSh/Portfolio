@@ -54,3 +54,15 @@ export const getPortfolioById = async (id) => {
   return await axiosInstance.get(`/portfolios/${id}`)
   .then(response => response.data);
 }
+
+export const updatePortfolio = async (portfolioData) => {
+  return await axiosInstance
+    .patch(`/portfolios/${portfolioData._id}`, portfolioData, setAuthHeader())
+    .then(response => response.data)
+    .catch(error => rejectPromise(error));
+}
+
+export const deletePortfolio = (portfolioId) => {
+  return axiosInstance.delete(`/portfolios/${portfolioId}`, setAuthHeader())
+  .then(response => response.data);
+}
