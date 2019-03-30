@@ -2,6 +2,7 @@ const Portfolio = require('../models/portfolio');
 
 
 exports.getPortfolios = (req, res) => {
+
     Portfolio.find({})
     .sort({'startDate': 1})
     .exec((err, allPortfolios) => {

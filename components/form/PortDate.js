@@ -8,14 +8,15 @@ export default class PortDate extends React.Component {
         super(props);
 
         const dateValue = props.initialDate ? new Date(props.initialDate) : new Date;
-
+        const isHidden = props.initialDate ? false : true;
+        
         this.state = {
             dateValue,
-            isHidden: false
+            isHidden
         };
 
         this.handleChange = this.handleChange.bind(this);
-        this.setFieldValueAndTouched(new Date, true);
+        // this.setFieldValueAndTouched(new Date, true);
     }
 
     componentDidMount() {
@@ -71,10 +72,11 @@ export default class PortDate extends React.Component {
                     </div>
                 }
                 {!isHidden && canBeDisable && <Button onClick={ () => this.toggleDate(null) }>Still Working Here...</Button>}
+                <br />
                 {  
                     isHidden && canBeDisable &&
                     <React.Fragment>
-                        <span>Still Working Here</span>
+                        <span>Still Working Here</span>{' '}
                         <Button onClick={() => this.toggleDate(dateValue)}>Set End Date</Button>
                     </React.Fragment>
                 }
