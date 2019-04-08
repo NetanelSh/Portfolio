@@ -1,11 +1,14 @@
 import React from "react";
 
 import HoverMenu from "./HoverMenu";
+import ControlMenu from './ControlMenu';
 
 import { Editor } from 'slate-react';
 import { initialValue } from './initial-value';
 import { renderMark, renderNode } from "./renderers";
-
+import { rules } from './rules';
+import Html from 'slate-html-serializer';
+const html = new Html({ rules })
 export default class SlateEditor extends React.Component {
     // Set the initial value when the app is first constructed.
     state = {
@@ -50,6 +53,37 @@ export default class SlateEditor extends React.Component {
         menu.style.left = `${rect.left + window.pageXOffset - menu.offsetWidth / 2 + rect.width / 2}px`;
     }
 
+    getWorkData() {
+        const { value } = this.state;
+        const titleBlock = value.document.getBlocks().get(0);
+        const slugBlock = value.document.getBlocks().get(1);
+        const linkBlock = value.document.getBlocks().get(2);
+        const gitLinkBlock = value.document.getBlocks().get(3);
+        const descBlock = value.document.getBlocks().get(4);
+
+        const title = titleBlock && titleBlock.text ? titleBlock.text : 'No Title';
+        const slug = slugBlock && slugBlock.text ? slugBlock.text : 'No Slug';
+        const link = linkBlock && linkBlock.text ? linkBlock.text : 'No Link';
+        const gitLink = gitLinkBlock && gitLinkBlock.text ? gitLinkBlock.text : 'No Git';
+        const description = descBlock && descBlock.text ? descBlock.text : 'No Desc';
+
+        return {
+            title,
+            slug,
+            link,
+            gitLink,
+            description
+        };
+    }
+
+    save() {
+        // const { value } = this.state;
+        const { save, isLoading } = this.props;
+        const workValues = this.getWorkData();
+        // const text = html.serialize(value);
+        !isLoading && save(workValues);
+    }
+
     // Render the editor.
     render() {
         const { isLoaded } = this.state;
@@ -58,7 +92,7 @@ export default class SlateEditor extends React.Component {
           <React.Fragment>
             { 
                 isLoaded && 
-                <Editor
+                <Editor {...this.props}
                     placeholder="Enter some text..."
                     value={this.state.value}
                     onChange={this.onChange}
@@ -72,9 +106,11 @@ export default class SlateEditor extends React.Component {
     }
 
     renderEditor = (props, editor, next) => {
-        const children = next()
+        const children = next();
+        const { isLoading } = props;
         return (
             <React.Fragment>
+            <ControlMenu isLoading={ isLoading } save={ () => this.save()} ></ControlMenu>
                 {children}
                 <HoverMenu innerRef={menu => (this.menu = menu)} editor={editor} />
             </React.Fragment>

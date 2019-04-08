@@ -13,7 +13,7 @@ const config = require('./config');
 
 const bookRoutes = require('./routes/book');
 const portfolioRoutes = require('./routes/portfolio');
-// const blogRoutes = require('./routes/blog');
+const workRoutes = require('./routes/work');
 
 const secretData = [
     {
@@ -40,8 +40,8 @@ app
     server.use(bodyParser.json());
 
     server.use('/api/v1/books', bookRoutes);
-
     server.use('/api/v1/portfolios', portfolioRoutes);
+    server.use('/api/v1/works', workRoutes);
     
     server.get('/api/v1/secret', authService.checkJWT ,(req, res) => {
         return res.json(secretData);

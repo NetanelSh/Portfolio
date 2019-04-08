@@ -66,3 +66,9 @@ export const deletePortfolio = (portfolioId) => {
   return axiosInstance.delete(`/portfolios/${portfolioId}`, setAuthHeader())
   .then(response => response.data);
 }
+
+export const createWork = async (workData) => {
+  return await axiosInstance.post('/works', workData, setAuthHeader())
+  .then(response => response.data)
+  .catch(error => rejectPromise(error));
+}
