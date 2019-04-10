@@ -3,7 +3,7 @@ import { Button } from 'reactstrap';
 const ControlMenu = (props) => {
     return (
         <div className="control-menu">
-            <h1 className="title">Add Another Work...</h1>
+            <h1 className="title">Write Your Story...</h1>
             <div className="status-box">
                 { props.isLoading ? 'Saving...' : 'Saved'}
             </div>

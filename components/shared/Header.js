@@ -75,6 +75,9 @@ class Header extends React.Component {
                   <BsNavLink route="/portfolios" title="Portfolio" />
                 </NavItem>
                 <NavItem className="post-navbar-item">
+                  <BsNavLink route="/works" title="Work" />
+                </NavItem>
+                <NavItem className="post-navbar-item">
                   <BsNavLink route="/blogs" title="Blog" />
                 </NavItem>
                 <NavItem className="post-navbar-item">

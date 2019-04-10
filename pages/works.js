@@ -1,127 +1,91 @@
 import React from 'react';
-import moment from 'moment';
+
 import BaseLayout from "../components/layouts/BaseLayout";
 import BasePage from '../components/BasePage';
-import { Container, Row, Col } from 'reactstrap';
-import { Link } from '../routes';
+import { Col, Row, Button } from "reactstrap";
+import { getWorks, deleteWork } from '../actions';
+
+import { Router } from '../routes';
+import WorkCard from '../components/works/WorkCard';
+
 class Works extends React.Component {
 
-  render() {
-    return (
-      <BaseLayout {...this.props.auth} headerType={'landing'} className="blog-listing-page">
-        <div className="masthead" style={{ "backgroundImage": "url('/static/images/home-bg.jpg')" }}>
-          <div className="overlay"></div>
-          <Container>
-            <div className="row">
-              <div className="col-lg-8 col-md-10 mx-auto">
-                <div className="site-heading">
-                  <h1>Fresh Blogs</h1>
-                  <span className="subheading">Programming, travelling...</span>
-                </div>
-              </div>
-            </div>
-          </Container>
-        </div>
-        <BasePage className="blog-body">
-          <Row>
-            <Col md="10" lg="8" className="mx-auto">
-              {
-                <React.Fragment>
-                  <div className="post-preview">
-                    <Link route={`/blogs/blogId`}>
-                      <a>
-                        <h2 className="post-title">
-                          Very Nice Blog Post
-                </h2>
-                        <h3 className="post-subtitle">
-                          How I Start Porgramming...
-                </h3>
-                      </a>
-                    </Link>
-                    <p className="post-meta">Posted by
-              <a href="#"> Filip Jerga </a>
-                      {moment().format('LLLL')}</p>
-                  </div>
-                  <hr></hr>
-                  <div className="post-preview">
-                    <Link route={`/blogs/blogId`}>
-                      <a>
-                        <h2 className="post-title">
-                          Very Nice Blog Post
-                </h2>
-                        <h3 className="post-subtitle">
-                          How I Start Porgramming...
-                </h3>
-                      </a>
-                    </Link>
-                    <p className="post-meta">Posted by
-              <a href="#"> Filip Jerga </a>
-                      {moment().format('LLLL')}</p>
-                  </div>
-                  <hr></hr>
-                  <div className="post-preview">
-                    <Link route={`/blogs/blogId`}>
-                      <a>
-                        <h2 className="post-title">
-                          Very Nice Blog Post
-                </h2>
-                        <h3 className="post-subtitle">
-                          How I Start Porgramming...
-                </h3>
-                      </a>
-                    </Link>
-                    <p className="post-meta">Posted by
-              <a href="#"> Filip Jerga </a>
-                      {moment().format('LLLL')}</p>
-                  </div>
-                  <hr></hr>
-                </React.Fragment>
-              }
-              <div className="clearfix">
-                <a className="btn btn-primary float-right" href="#">Older Posts &rarr;</a>
-              </div>
-            </Col>
-          </Row>
+  static async getInitialProps() {
+    let works = [];
 
-          <footer>
-            <Container>
-              <Row>
-                <div className="col-lg-8 col-md-10 mx-auto">
-                  <ul className="list-inline text-center">
-                    <li className="list-inline-item">
-                      <a href="#">
-                        <span className="fa-stack fa-lg">
-                          <i className="fas fa-circle fa-stack-2x"></i>
-                          <i className="fab fa-twitter fa-stack-1x fa-inverse"></i>
-                        </span>
-                      </a>
-                    </li>
-                    <li className="list-inline-item">
-                      <a href="#">
-                        <span className="fa-stack fa-lg">
-                          <i className="fas fa-circle fa-stack-2x"></i>
-                          <i className="fab fa-facebook-f fa-stack-1x fa-inverse"></i>
-                        </span>
-                      </a>
-                    </li>
-                    <li className="list-inline-item">
-                      <a href="#">
-                        <span className="fa-stack fa-lg">
-                          <i className="fas fa-circle fa-stack-2x"></i>
-                          <i className="fab fa-github fa-stack-1x fa-inverse"></i>
-                        </span>
-                      </a>
-                    </li>
-                  </ul>
-                  <p className="copyright text-muted">Copyright &copy; Filip Jerga 2018</p>
-                </div>
-              </Row>
-            </Container>
-          </footer>
-        </BasePage>
-      </BaseLayout>
-    );
+    try {
+      works = await getWorks();
+    } catch (err) {
+      console.error(err);
+    }
+
+    return { works };
   }
+
+  displayDeletingWarning(workId, e) {
+    e.stopPropagation();
+    const isConfirm = confirm('Are You Sure You Want Delete This Work?');
+
+    if (isConfirm) {
+      this.deleteWork(workId);
+    }
+  }
+
+  navigateToEdit(workId, e) {
+    e.stopPropagation();
+    Router.pushRoute(`/works/${workId}/edit`)
+  }
+
+  deleteWork(workId) {
+    deleteWork(workId)
+    .then( () => {
+      Router.pushRoute('/works');
+    })
+    .catch(err => console.error(err));
+  }
+
+  renderWorks(works) {
+
+    const { isAuthenticated, isSiteOwner } = this.props.auth;
+
+    return works.map((work, index) => {
+          return (
+            <Col md="4" key={index}>
+              <WorkCard work={work}>
+                {isAuthenticated && isSiteOwner &&
+                  <React.Fragment>
+                    <Button color="warning" onClick={(e) => this.navigateToEdit(work._id, e)}>Edit</Button>{' '}
+                    <Button onClick={(e) => this.displayDeletingWarning(work._id, e)} color="danger">Delete</Button>
+                  </React.Fragment>
+                }
+              </WorkCard>
+            </Col>
+          );
+      });
+  }
+
+    render() {
+
+      const { works } = this.props;
+      const { isAuthenticated, isSiteOwner } = this.props.auth;
+
+        return (
+          <BaseLayout {...this.props.auth}>
+            <BasePage className="works-page" title="Works">
+              {isAuthenticated && isSiteOwner &&
+                <Button
+                  onClick={() => Router.pushRoute("/workNew")}
+                  color="success"
+                  className="create-work-btn"
+                >
+                  Create Work
+                </Button>
+              }
+              <Row>{this.renderWorks(works)}</Row>
+            </BasePage>
+          </BaseLayout>
+        );
+    }
 }
 
 export default Works;
