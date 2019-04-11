@@ -1,5 +1,6 @@
 const Blog = require('../models/blog');
 const slugify = require('slugify');
+
 const AsyncLock = require('async-lock');
 const lock = new AsyncLock();
 

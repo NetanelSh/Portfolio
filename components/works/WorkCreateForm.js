@@ -28,20 +28,20 @@ const WorkCreateForm = ({ initialValues, onSubmit, error }) => (
           <Field type="text" name="title" label="Title" component={WorkInput} />
           <Field
             type="text"
-            name="company"
-            label="Company"
+            name="url"
+            label="Url"
             component={WorkInput}
           />
           <Field
             type="text"
-            name="location"
-            label="Location"
+            name="gitUrl"
+            label="GitUrl"
             component={WorkInput}
           />
           <Field
             type="text"
-            name="position"
-            label="Position"
+            name="imageUrl"
+            label="ImageUrl"
             component={WorkInput}
           />
           <Field

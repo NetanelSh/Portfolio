@@ -1,6 +1,5 @@
 const Work = require('../models/work');
 
-
 exports.getWorks = (req, res) => {
 
     Work.find({})

@@ -24,8 +24,6 @@ class WorkCardDetail extends React.Component {
                 <p><strong>Company:</strong> {work.company}</p>
                 <p><strong>Position:</strong> {work.position}</p>
                 <p><strong>Location:</strong> {work.location}</p>
-                <p><strong>Start Date:</strong> {new Date(work.startDate).toLocaleDateString('en-US', options)}</p>
-                <p><strong>End Date:</strong> {work.endDate ? new Date(work.endDate).toLocaleDateString('en-US', options) : 'Still Working Here'}</p>
               </ModalBody>
               <ModalFooter>
                 <Button color="secondary" onClick={toggle}>

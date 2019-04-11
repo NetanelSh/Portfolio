@@ -5,14 +5,14 @@ const authService = require('../services/auth');
 
 const workCtrl = require('../controllers/work');
 
-router.post('', authService.checkJWT, authService.checkRole('siteOwner'), workCtrl.savePortfolio);
+router.post('', authService.checkJWT, authService.checkRole('siteOwner'), workCtrl.saveWork);
 
-router.get('', workCtrl.getPortfolios);
+router.get('', workCtrl.getWorks);
 
-router.get('/:id', workCtrl.getPortfolioById);
+router.get('/:id', workCtrl.getWorkById);
 
-router.patch('/:id', authService.checkJWT, authService.checkRole('siteOwner'), workCtrl.updatePortfolio);
+router.patch('/:id', authService.checkJWT, authService.checkRole('siteOwner'), workCtrl.updateWork);
 
-router.delete('/:id', authService.checkJWT, authService.checkRole('siteOwner'), workCtrl.deletePortfolio);
+router.delete('/:id', authService.checkJWT, authService.checkRole('siteOwner'), workCtrl.deleteWork);
 
 module.exports = router;

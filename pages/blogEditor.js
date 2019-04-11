@@ -6,6 +6,7 @@ import withAuth from '../components/hoc/withAuth';
 import { Router } from '../routes';
 
 import SlateEditor from '../components/slate-editor/Editor';
+import { toast } from 'react-toastify';
 
 import { createBlog } from '../actions';
 

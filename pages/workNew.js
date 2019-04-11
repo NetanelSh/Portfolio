@@ -10,7 +10,7 @@ import { Row, Col } from 'reactstrap';
 
 import { Router } from '../routes'; 
 
-const INITIAL_VALUES = { title: '', company: '', location: '', position: '', description: '' };
+const INITIAL_VALUES = { title: '', url: '', gitUrl: '', imageUrl: '', description: '' };
 
 class WorkNew extends React.Component {
 

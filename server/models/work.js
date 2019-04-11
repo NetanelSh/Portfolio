@@ -10,7 +10,7 @@ const workScheme = new Schema({
     title: setStringType(256),
     url: setStringType(256),
     gitUrl: setStringType(128),
-    imageLink: setStringType(256),
+    imageUrl: setStringType(256),
     description: setStringType(2048),
 });
 

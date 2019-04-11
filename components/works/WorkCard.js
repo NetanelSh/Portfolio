@@ -9,7 +9,7 @@ import {
   CardTitle
 } from "reactstrap";
 
-export default class WorkCardDetail extends React.Component {
+export default class WorkCard extends React.Component {
 
     constructor(props) {
         super(props);
@@ -31,6 +31,10 @@ export default class WorkCardDetail extends React.Component {
         const {work, children} = this.props;
         const { isOpen } = this.state;
 
+        const cardBg = {
+          backgroundImage: `url(${work.imageLink})`
+        }
+
         return (
           <span onClick={this.handleToggle}>
             <WorkCardDetail
@@ -40,14 +44,14 @@ export default class WorkCardDetail extends React.Component {
             />
             <Card className="work-card">
               <CardHeader className="work-card-header">
-                {work.position}
+                {work.title}
               </CardHeader>
-              <CardBody>
-                <p className="work-card-city">
-                  {work.location}
-                </p>
-                <CardTitle className="work-card-title">
+              <CardBody style={cardBg} className="work-card-body">
+                <a href={work.url} className="work-card-title-link">
                   {work.title}
+                </a>
+                <CardTitle className="work-card-title-git">
+                  <a href={work.gitUrl}> {work.title} </a>
                 </CardTitle>
                 <CardText className="work-card-text">
                   {work.description}
