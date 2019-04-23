@@ -21,7 +21,7 @@ class HoverMenu extends React.Component {
       const root = window.document.getElementById('__next');
 
       return ReactDOM.createPortal(
-        <StyledMenu className={className} innerRef={innerRef}>
+        <StyledMenu className={className} ref={innerRef}>
           {this.renderMarkButton("bold", "format_bold")}
           {this.renderMarkButton("italic", "format_italic")}
           {this.renderMarkButton("underlined", "format_underlined")}

@@ -95,7 +95,7 @@ export const deleteWork = async (workId) => {
     .then(response => response.data);
 }
 
-export const getBlogs = async () => {
+export const getBlogs = async (req) => {
   return await axiosInstance.get('/blogs').then(response => response.data);
 }
 

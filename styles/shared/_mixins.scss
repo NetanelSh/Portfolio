@@ -22,8 +22,8 @@
 }
 
 
-@mixin animation-detail($detail) {
-  -webkit-animation-delay: $detail;
-  -moz-animation-delay: $detail;
-  animation-delay: $detail;
+@mixin animation-delay($delay) {
+  -webkit-animation-delay: $delay;
+  -moz-animation-delay: $delay;
+  animation-delay: $delay;
 }

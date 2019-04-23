@@ -4,7 +4,6 @@ const path = require('path');
 const next = require("next");
 const mongoose = require("mongoose");
 const routes = require("../routes");
-
 // Services
 const authService = require('./services/auth');
 
@@ -21,10 +20,10 @@ const workRoutes = require('./routes/work');
 const blogRoutes = require('./routes/blog');
 
 const robotsOptions = {
-    root: path.join(__dirname, "../static"),
-    headers: {
-        'Content-Type': 'text/plain;charset=UTF-8'
-    }
+  root: path.join(__dirname, "../static"),
+  headers: {
+    'Content-Type': 'text/plain;charset=UTF-8'
+  }
 }
 
 const secretData = [
