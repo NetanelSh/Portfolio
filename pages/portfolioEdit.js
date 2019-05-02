@@ -21,7 +21,6 @@ class PortfolioEdit extends React.Component {
             console.error(error);
         }
 
-        console.log(portfolio);
         return {portfolio};
     }
 

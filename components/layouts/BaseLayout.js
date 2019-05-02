@@ -7,7 +7,6 @@ const BaseLayout = (props) => {
   const { className, children, isAuthenticated, user, isSiteOwner, cannonical } = props;
   const headerType = props.headerType || 'default';
   const title = props.title || "Netanel Sheinbin Portfolio";
-  console.log(process.env.BASE_URL);
     return (
       <React.Fragment>
         <Head>

@@ -23,7 +23,6 @@ class BlogDetail extends React.Component {
 
     render() {
         const { blog } = this.props;
-        console.log(blog);
 
         return (
             <BaseLayout {...this.props.auth}>
