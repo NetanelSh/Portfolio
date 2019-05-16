@@ -4,6 +4,7 @@ const path = require('path');
 const next = require("next");
 const mongoose = require("mongoose");
 const routes = require("../routes");
+
 // Services
 const authService = require('./services/auth');
 
@@ -49,7 +50,6 @@ app
     const server = express();
     server.use(compression());
     server.use(bodyParser.json());
-
     server.use('/api/v1/books', bookRoutes);
     server.use('/api/v1/portfolios', portfolioRoutes);
     server.use('/api/v1/blogs', blogRoutes);
