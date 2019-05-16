@@ -14,8 +14,14 @@
 @import './header';
 @import './slate-editor';
 
-html, body {
+.montserrat-loaded {
+  html, body {
     font-family: 'Montserrat', 'Helvetica';
+  }
+}
+
+html, body {
+    font-family: 'Helvetica';
     height: 100%;
     width: 100%;
 }

@@ -53,7 +53,7 @@ class Index extends React.Component {
                                                     Have a Look At My Portfolio & Job History
                                                 </div>
                                             </div>
-                                            <img className="image" src="/static/images/section-1.png" alt="section image"/>
+                                            <img className="image" src="/static/images/section-1.jpg" alt="section image"/>
                                             <div className="shadow-custom">
                                                 <div className="shadow-inner"> </div>
                                             </div>
@@ -65,7 +65,7 @@ class Index extends React.Component {
                                                     Professional & Top Quality in Web Development
                                                 </div>
                                             </div>
-                                            <img className="image" src="/static/images/section-2.png" alt="section image"/>
+                                            <img className="image" src="/static/images/section-2.jpg" alt="section image"/>
                                             <div className="shadow-custom shadow-custom-2">
                                                 <div className="shadow-inner"> </div>
                                             </div>
