@@ -21,7 +21,7 @@ const BaseLayout = (props) => {
           <meta property="og:description" content="My name is Netanel Sheinbin and I am an experienced Full Stack Web Developer."/>
           
           {cannonical && <link rel="cannonical" href={`${process.env.BASE_URL}${cannonical}`} />}
-
+          <link href="https://fonts.googleapis.com/css?family=Montserrat:400,700" rel="stylesheet" />
           <link rel="icon" type="image/ico" href="/static/favicon.ico" />
         </Head>
         <div className="layout-container">
